@@ -15,11 +15,11 @@ public class ClientService {
     @Autowired
     private ClientDao clientDao;
 
-    public ClientService(@Qualifier("MongoDB") ClientDao clientDao) {
+    public ClientService(@Qualifier("ClientDao") ClientDao clientDao) {
         this.clientDao = clientDao;
     }
 
-    public List<Client> findAll(){
-        return clientDao.findAll();
+    public List<Client> findByName(){
+        return clientDao.findByName();
     }
 }

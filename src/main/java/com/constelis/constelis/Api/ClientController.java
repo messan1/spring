@@ -10,18 +10,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
 @RequestMapping("api/v1/client")
+@RestController
 public class ClientController {
+
+    @Autowired
     private ClientService clientService;
 
-    public ClientController(@Autowired ClientService clientService) {
+    public ClientController(ClientService clientService) {
         this.clientService = clientService;
     }
 
-    @GetMapping
-    public List<Client> findAll(){
-        return clientService.findAll();
+    @GetMapping()
+    public List<Client> findByName() {
+        return clientService.findByName();
     }
-    
+
 }
