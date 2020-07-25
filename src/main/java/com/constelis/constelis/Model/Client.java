@@ -1,11 +1,18 @@
 package com.constelis.constelis.Model;
+
+import org.springframework.data.annotation.Id;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-@Getter @Setter @NoArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 public class Client {
+
+    @Id
+    private final String id;
     private final String name;
     private final String address;
     private final String postalCode;
@@ -20,8 +27,10 @@ public class Client {
     private final String linkedin;
     private final String notes;
 
-    public Client(String name, String address, String postalCode, String sector, String city, String precision,
-            String activity, String phone1, String phone2, String email, String rights, String linkedin, String notes) {
+    public Client(String id, String name, String address, String postalCode, String sector, String city,
+            String precision, String activity, String phone1, String phone2, String email, String rights,
+            String linkedin, String notes) {
+        this.id = id;
         this.name = name;
         this.address = address;
         this.postalCode = postalCode;
@@ -36,4 +45,5 @@ public class Client {
         this.linkedin = linkedin;
         this.notes = notes;
     }
+
 }
