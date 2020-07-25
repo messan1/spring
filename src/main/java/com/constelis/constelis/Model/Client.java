@@ -1,6 +1,7 @@
 package com.constelis.constelis.Model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,11 +10,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@Document(collation = "client")
 public class Client {
 
     @Id
     private final String id;
-    private final String name;
     private final String address;
     private final String postalCode;
     private final String sector;
@@ -31,7 +32,6 @@ public class Client {
             String precision, String activity, String phone1, String phone2, String email, String rights,
             String linkedin, String notes) {
         this.id = id;
-        this.name = name;
         this.address = address;
         this.postalCode = postalCode;
         this.sector = sector;
