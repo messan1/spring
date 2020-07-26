@@ -2,23 +2,30 @@ package com.constelis.constelis.Model;
 
 import java.time.LocalDateTime;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Getter
-@Setter
-@NoArgsConstructor
 public class ContactInformation {
     private final String observation;
     private final String technoTools;
     private final LocalDateTime plaquette;
 
-    public ContactInformation(String observation, String technoTools, LocalDateTime plaquette) {
+    public ContactInformation(@JsonProperty("observation") String observation,
+            @JsonProperty("technoTools") String technoTools, @JsonProperty("plaquette") LocalDateTime plaquette) {
         this.observation = observation;
         this.technoTools = technoTools;
         this.plaquette = plaquette;
     }
-    
+
+    public LocalDateTime getPlaquette() {
+        return plaquette;
+    }
+
+    public String getTechnoTools() {
+        return technoTools;
+    }
+
+    public String getObservation() {
+        return observation;
+    }
 
 }

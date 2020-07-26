@@ -10,8 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class Client {
 
-    @Id
-    private final String id;
+    private final String _id;
     private final String name;
     private final String address;
     private final String postalCode;
@@ -26,14 +25,14 @@ public class Client {
     private final String linkedin;
     private final String notes;
 
-    public Client(@JsonProperty("id") String id, @JsonProperty("name") String name,
+    public Client(@JsonProperty("id") String _id, @JsonProperty("name") String name,
             @JsonProperty("address") String address, @JsonProperty("postalCode") String postalCode,
             @JsonProperty("sectpr") String sector, @JsonProperty("city") String city,
             @JsonProperty("precision") String precision, @JsonProperty("activity") String activity,
             @JsonProperty("phone1") String phone1, @JsonProperty("phone2") String phone2,
             @JsonProperty("email") String email, @JsonProperty("rights") String rights,
             @JsonProperty("linkedin") String linkedin, @JsonProperty("notes") String notes) {
-        this.id = id;
+        this._id = _id;
         this.name = name;
         this.address = address;
         this.postalCode = postalCode;
@@ -47,6 +46,10 @@ public class Client {
         this.rights = rights;
         this.linkedin = linkedin;
         this.notes = notes;
+    }
+
+    public String get_id() {
+        return _id;
     }
 
     public String getNotes() {

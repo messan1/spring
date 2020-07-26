@@ -1,25 +1,34 @@
 package com.constelis.constelis.Model;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Setter @Getter @NoArgsConstructor
+
 public class ContactConversation {
 
     private final LocalDateTime date;
     private final String conversation;
     private final String trigramme;
 
-    public ContactConversation(LocalDateTime date, String conversation, String trigramme) {
+    public ContactConversation(@JsonProperty("date") LocalDateTime date,
+            @JsonProperty("conversation") String conversation,@JsonProperty("trigramme") String trigramme) {
         this.date = date;
         this.conversation = conversation;
         this.trigramme = trigramme;
     }
-    
-    
+
+    public String getTrigramme() {
+        return trigramme;
+    }
+
+    public String getConversation() {
+        return conversation;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
 }

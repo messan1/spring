@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Contact {
 
     @Id
-    private final String id;
+    private final String _id;
     private final String lastName;
     private final String status;
     private final String email;
@@ -39,7 +39,7 @@ public class Contact {
             @JsonProperty("contactConversation") List<ContactConversation> contactConversation,
             @JsonProperty("contactInformation") List<ContactInformation> contactInformation
             ) {
-        this.id = id;
+        this._id = id;
         this.lastName = lastName;
         this.status = status;
         this.email = email;
