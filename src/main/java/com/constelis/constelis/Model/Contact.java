@@ -3,16 +3,11 @@ package com.constelis.constelis.Model;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@NoArgsConstructor
 @Document(collation = "contact")
 public class Contact {
 
@@ -30,9 +25,20 @@ public class Contact {
     private final List<ContactConversation> contactConversation;
     private final List<ContactInformation> contactInformation;
 
-    public Contact(String id, String lastName, String status, String email, String title, LocalDateTime reminder,
-            String[] phones, String linkedin, ContactNeed contactNeed, List<String[]> contactPushs,
-            List<ContactConversation> contactConversation, List<ContactInformation> contactInformation) {
+    public Contact(
+            @JsonProperty("id") String id,
+            @JsonProperty("lastName") String lastName,
+            @JsonProperty("status") String status, 
+            @JsonProperty("email") String email,
+            @JsonProperty("title") String title, 
+            @JsonProperty("reminder") LocalDateTime reminder,
+            @JsonProperty("phones") String[] phones, 
+            @JsonProperty("linkedin") String linkedin,
+            @JsonProperty("contactNeed") ContactNeed contactNeed,
+            @JsonProperty("contactPushs") List<String[]> contactPushs,
+            @JsonProperty("contactConversation") List<ContactConversation> contactConversation,
+            @JsonProperty("contactInformation") List<ContactInformation> contactInformation
+            ) {
         this.id = id;
         this.lastName = lastName;
         this.status = status;
@@ -45,6 +51,50 @@ public class Contact {
         this.contactPushs = contactPushs;
         this.contactConversation = contactConversation;
         this.contactInformation = contactInformation;
+    }
+
+    public List<ContactInformation> getContactInformation() {
+        return contactInformation;
+    }
+
+    public List<ContactConversation> getContactConversation() {
+        return contactConversation;
+    }
+
+    public List<String[]> getContactPushs() {
+        return contactPushs;
+    }
+
+    public ContactNeed getContactNeed() {
+        return contactNeed;
+    }
+
+    public String getLinkedin() {
+        return linkedin;
+    }
+
+    public String[] getPhones() {
+        return phones;
+    }
+
+    public LocalDateTime getReminder() {
+        return reminder;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
 }
