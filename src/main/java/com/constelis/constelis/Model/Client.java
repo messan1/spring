@@ -1,20 +1,18 @@
 package com.constelis.constelis.Model;
 
-import org.springframework.data.annotation.Id;
+import java.util.HashMap;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@NoArgsConstructor
-@Document(collation = "client")
+@Document
 public class Client {
 
-    @Id
-    private final String id;
+    private final String _id;
+    private final String name;
     private final String address;
     private final String postalCode;
     private final String sector;
@@ -27,11 +25,18 @@ public class Client {
     private final String rights;
     private final String linkedin;
     private final String notes;
+    @DBRef
+    private final List<Contact> contacts = null;
 
-    public Client(String id, String name, String address, String postalCode, String sector, String city,
-            String precision, String activity, String phone1, String phone2, String email, String rights,
-            String linkedin, String notes) {
-        this.id = id;
+    public Client(@JsonProperty("id") String _id, @JsonProperty("name") String name,
+            @JsonProperty("address") String address, @JsonProperty("postalCode") String postalCode,
+            @JsonProperty("sectpr") String sector, @JsonProperty("city") String city,
+            @JsonProperty("precision") String precision, @JsonProperty("activity") String activity,
+            @JsonProperty("phone1") String phone1, @JsonProperty("phone2") String phone2,
+            @JsonProperty("email") String email, @JsonProperty("rights") String rights,
+            @JsonProperty("linkedin") String linkedin, @JsonProperty("notes") String notes) {
+        this._id = _id;
+        this.name = name;
         this.address = address;
         this.postalCode = postalCode;
         this.sector = sector;
@@ -46,4 +51,85 @@ public class Client {
         this.notes = notes;
     }
 
+    public List<Contact> getContacts() {
+        return contacts;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public String getLinkedin() {
+        return linkedin;
+    }
+
+    public String getRights() {
+        return rights;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhone2() {
+        return phone2;
+    }
+
+    public String getPhone1() {
+        return phone1;
+    }
+
+    public String getActivity() {
+        return activity;
+    }
+
+    public String getPrecision() {
+        return precision;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getSector() {
+        return sector;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<Contact> addContact(Contact contact){
+        contacts.add(contact);
+        return contacts;
+    }
+    public HashMap<String, String> Data() {
+        HashMap<String, String> data = new HashMap<>();
+        data.put("name", getName());
+        data.put("notes", getNotes());
+        data.put("address", getAddress());
+        data.put("email", getEmail());
+        data.put("postalCode", getPostalCode());
+        data.put("city", getCity());
+        data.put("activity", getActivity());
+        data.put("precision", getPrecision());
+        data.put("phone1", getPhone1());
+        data.put("phone2", getPhone2());
+        data.put("linkedin", getLinkedin());
+        data.put("rights", getRights());
+
+        return data;
+    }
 }
