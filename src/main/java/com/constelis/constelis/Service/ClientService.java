@@ -19,7 +19,15 @@ public class ClientService {
         this.clientDao = clientDao;
     }
 
-    public List<Client> findByName(){
-        return clientDao.findByName();
+    public List<Client> findAll(){
+        return clientDao.findAll();
     }
+
+    public Client addClient(Client client){
+        return clientDao.addClient(client);
+    }
+
+    public List<Client> findByName(String name){
+        return clientDao.findByName(name);
+    } 
 }

@@ -5,16 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
-
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
 @Document
 public class Client {
 
@@ -55,6 +45,58 @@ public class Client {
         this.rights = rights;
         this.linkedin = linkedin;
         this.notes = notes;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public String getLinkedin() {
+        return linkedin;
+    }
+
+    public String getRights() {
+        return rights;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhone2() {
+        return phone2;
+    }
+
+    public String getPhone1() {
+        return phone1;
+    }
+
+    public String getActivity() {
+        return activity;
+    }
+
+    public String getPrecision() {
+        return precision;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getSector() {
+        return sector;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getName() {
+        return name;
     }
 
 }
