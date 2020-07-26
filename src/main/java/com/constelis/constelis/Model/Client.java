@@ -1,10 +1,11 @@
 package com.constelis.constelis.Model;
 
 import java.util.HashMap;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -24,6 +25,8 @@ public class Client {
     private final String rights;
     private final String linkedin;
     private final String notes;
+    @DBRef
+    private final List<Contact> contacts = null;
 
     public Client(@JsonProperty("id") String _id, @JsonProperty("name") String name,
             @JsonProperty("address") String address, @JsonProperty("postalCode") String postalCode,
@@ -46,6 +49,10 @@ public class Client {
         this.rights = rights;
         this.linkedin = linkedin;
         this.notes = notes;
+    }
+
+    public List<Contact> getContacts() {
+        return contacts;
     }
 
     public String get_id() {
@@ -104,8 +111,8 @@ public class Client {
         return name;
     }
 
-    public HashMap<String,String> Data(){
-        HashMap<String,String> data = new HashMap<>();
+    public HashMap<String, String> Data() {
+        HashMap<String, String> data = new HashMap<>();
         data.put("name", getName());
         data.put("notes", getNotes());
         data.put("address", getAddress());
