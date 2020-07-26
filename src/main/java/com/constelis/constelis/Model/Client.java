@@ -111,6 +111,10 @@ public class Client {
         return name;
     }
 
+    public List<Contact> addContact(Contact contact){
+        contacts.add(contact);
+        return contacts;
+    }
     public HashMap<String, String> Data() {
         HashMap<String, String> data = new HashMap<>();
         data.put("name", getName());

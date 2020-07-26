@@ -39,7 +39,7 @@ public class ClientDao {
     public UpdateResult updateClient(String id, Client client) {
         Query query = new Query().addCriteria(new Criteria().andOperator(Criteria.where("_id").is(id)));
         Update update = new Update();
-        client.Data().forEach((key, value) -> update.set(key, value));
+        client.Data().forEach(update::set);
         return mongoTemplate.updateFirst(query, update, Client.class);
     }
 
