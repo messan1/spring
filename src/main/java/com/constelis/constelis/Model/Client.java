@@ -1,5 +1,7 @@
 package com.constelis.constelis.Model;
 
+import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.data.annotation.Id;
@@ -99,4 +101,21 @@ public class Client {
         return name;
     }
 
+    public HashMap<String,String> Data(){
+        HashMap<String,String> data = new HashMap<>();
+        data.put("name", getName());
+        data.put("notes", getNotes());
+        data.put("address", getAddress());
+        data.put("email", getEmail());
+        data.put("postalCode", getPostalCode());
+        data.put("city", getCity());
+        data.put("activity", getActivity());
+        data.put("precision", getPrecision());
+        data.put("phone1", getPhone1());
+        data.put("phone2", getPhone2());
+        data.put("linkedin", getLinkedin());
+        data.put("rights", getRights());
+
+        return data;
+    }
 }
