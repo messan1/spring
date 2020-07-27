@@ -2,7 +2,6 @@ package com.constelis.constelis.Dao;
 
 
 import com.constelis.constelis.Dao.Interface.ContactRepository;
-import com.constelis.constelis.Model.Client;
 import com.constelis.constelis.Model.Contact;
 import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ import java.util.List;
 public class ContactDao {
     @Autowired
     private ContactRepository repository;
-    private MongoTemplate mongoTemplate;
+    private final MongoTemplate mongoTemplate;
 
     public ContactDao(MongoTemplate mongoTemplate){this.mongoTemplate=mongoTemplate;}
 
@@ -56,4 +55,5 @@ public class ContactDao {
 
         return mongoTemplate.updateFirst(query, update, Contact.class);
     }
+
 }

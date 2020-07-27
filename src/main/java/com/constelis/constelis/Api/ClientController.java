@@ -3,6 +3,7 @@ package com.constelis.constelis.Api;
 import java.util.List;
 
 import com.constelis.constelis.Model.Client;
+import com.constelis.constelis.Model.Contact;
 import com.constelis.constelis.Service.ClientService;
 import com.mongodb.client.result.UpdateResult;
 
@@ -51,10 +52,13 @@ public class ClientController {
     public UpdateResult updateClient(@RequestParam(name = "id") String id, @RequestBody Client client) {
         return clientService.updateClient(id, client);
     }
-
     @DeleteMapping
     public Client deleteById(@RequestParam(name = "id") String id) {
         return clientService.deleteById(id);
     }
 
+    @PutMapping("/contact")
+    public UpdateResult addContact(String id, String contactId){
+        return clientService.addContact(id,contactId);
+    }
 }

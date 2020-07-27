@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.constelis.constelis.Dao.ClientDao;
 import com.constelis.constelis.Model.Client;
+import com.constelis.constelis.Model.Contact;
 import com.mongodb.client.result.UpdateResult;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ClientService {
     @Autowired
-    private ClientDao clientDao;
+    private final ClientDao clientDao;
 
     public ClientService(@Qualifier("ClientDao") ClientDao clientDao) {
         this.clientDao = clientDao;
@@ -42,5 +43,9 @@ public class ClientService {
 
     public Client findById(String id){
         return clientDao.findById(id);
+    }
+
+    public UpdateResult addContact(String id , String contactId){
+        return  clientDao.addContact(id,contactId);
     }
 }

@@ -9,17 +9,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collation = "contact")
+@Document("contact")
 public class Contact {
 
-    private final String _id;
+    @Id
+    private final String id;
     private final String firstName;
     private final String lastName;
     private final String status;
     private final String email;
     private final String title;
     private final String linkedin;
-    private final LocalDateTime reminder;
+    private final String reminder;
     private final String[] phones;
     private final ContactNeed contactNeed;
     private final List<String[]> contactPushs;
@@ -27,21 +28,22 @@ public class Contact {
     private final List<ContactInformation> contactInformation;
 
     public Contact(
-            @JsonProperty("id") String _id,
-            @JsonProperty("lastName") String lastName,
+
+            @JsonProperty("id") String id, @JsonProperty("lastName") String lastName,
             @JsonProperty("firstName") String firstName,
-            @JsonProperty("status") String status, 
+            @JsonProperty("status") String status,
             @JsonProperty("email") String email,
-            @JsonProperty("title") String title, 
-            @JsonProperty("reminder") LocalDateTime reminder,
-            @JsonProperty("phones") String[] phones, 
+            @JsonProperty("title") String title,
+            @JsonProperty("reminder") String reminder,
+            @JsonProperty("phones") String[] phones,
             @JsonProperty("linkedin") String linkedin,
             @JsonProperty("contactNeed") ContactNeed contactNeed,
             @JsonProperty("contactPushs") List<String[]> contactPushs,
             @JsonProperty("contactConversation") List<ContactConversation> contactConversation,
             @JsonProperty("contactInformation") List<ContactInformation> contactInformation
-            ) {
-        this._id = _id;
+    ) {
+        this.id = id;
+
         this.lastName = lastName;
         this.status = status;
         this.email = email;
@@ -54,6 +56,10 @@ public class Contact {
         this.contactPushs = contactPushs;
         this.contactConversation = contactConversation;
         this.contactInformation = contactInformation;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public List<ContactInformation> getContactInformation() {
@@ -80,7 +86,7 @@ public class Contact {
         return phones;
     }
 
-    public LocalDateTime getReminder() {
+    public String getReminder() {
         return reminder;
     }
 
@@ -115,7 +121,4 @@ public class Contact {
         return  data;
     }
 
-    public String get_id() {
-        return _id;
-    }
 }

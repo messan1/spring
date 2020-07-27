@@ -1,9 +1,11 @@
 package com.constelis.constelis.Dao;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import com.constelis.constelis.Dao.Interface.ClientRepository;
 import com.constelis.constelis.Model.Client;
+import com.constelis.constelis.Model.Contact;
 import com.mongodb.client.result.UpdateResult;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,8 @@ import org.springframework.data.mongodb.core.query.Update;
 public class ClientDao {
     @Autowired
     private ClientRepository repository;
-    private MongoTemplate mongoTemplate;
+
+    private final MongoTemplate mongoTemplate;
 
     public ClientDao(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
@@ -51,5 +54,18 @@ public class ClientDao {
     public Client deleteById(String id) {
         Query query = new Query().addCriteria(Criteria.where("_id").is(id));
         return mongoTemplate.findAndRemove(query, Client.class);
+    }
+
+    public UpdateResult addContact(String clientId,String contactId){
+        Update update = new Update();
+        Query contactQuery = new Query().addCriteria(Criteria.where("_id").is(contactId));
+        Query clientQuery = new Query().addCriteria(Criteria.where("_id").is(clientId));
+        Contact contact= mongoTemplate.findOne(contactQuery, Contact.class);
+        Client client = mongoTemplate.findOne(clientQuery,Client.class);
+        List<Contact>  contacts = client.getContacts();
+        contacts.add(contact);
+        update.set("contacts",contacts);
+
+        return  mongoTemplate.updateFirst(clientQuery, update, Client.class);
     }
 }
