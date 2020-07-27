@@ -22,6 +22,10 @@ public class ContactController {
     private List<Contact> findByName(@RequestParam(name="firstName") String firstName,@RequestParam(name = "lastName") String lastName){
         return contactService.findByName(firstName,lastName);
     }
+    @GetMapping("/startby")
+    private List<Contact> findByNameStartBy(@RequestParam(name = "name") String name){
+        return null;
+    }
     @PostMapping
     public Contact addContact(@RequestBody Contact contact) {
         return contactService.addContact(contact);

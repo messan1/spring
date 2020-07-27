@@ -38,6 +38,11 @@ public class ClientController {
         return clientService.findByName(name);
     }
 
+    @GetMapping("/startby")
+    private List<Client> findByNameStartBy(@RequestParam(name = "name") String name){
+        return null;
+    }
+
     @GetMapping("/id")
     public Client findById(@RequestParam(name = "id") String id) {
         return clientService.findById(id);

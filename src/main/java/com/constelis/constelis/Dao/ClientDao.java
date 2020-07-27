@@ -51,6 +51,11 @@ public class ClientDao {
         return mongoTemplate.findOne(query, Client.class);
     }
 
+    public List<Client> findByNameStartBy(String name){
+        Query query = new Query().addCriteria(Criteria.where("name").regex("^"+name));
+        return mongoTemplate.find(query,Client.class);
+    }
+
     public Client deleteById(String id) {
         Query query = new Query().addCriteria(Criteria.where("_id").is(id));
         return mongoTemplate.findAndRemove(query, Client.class);

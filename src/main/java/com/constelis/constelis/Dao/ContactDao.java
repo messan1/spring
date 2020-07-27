@@ -2,6 +2,7 @@ package com.constelis.constelis.Dao;
 
 
 import com.constelis.constelis.Dao.Interface.ContactRepository;
+import com.constelis.constelis.Model.Client;
 import com.constelis.constelis.Model.Contact;
 import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,12 @@ public class ContactDao {
         Query query = new Query().addCriteria(Criteria.where("_id").is(id));
         return mongoTemplate.findOne(query, Contact.class);
     }
+
+    public List<Contact> findByNameStartBy(String name){
+        Query query = new Query().addCriteria(Criteria.where("name").regex("^"+name));
+        return mongoTemplate.find(query,Contact.class);
+    }
+
     public Contact deleteById(String id) {
         Query query = new Query().addCriteria(Criteria.where("_id").is(id));
         return mongoTemplate.findAndRemove(query, Contact.class);
