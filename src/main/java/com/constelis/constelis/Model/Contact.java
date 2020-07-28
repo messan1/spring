@@ -22,7 +22,7 @@ public class Contact {
     private final String linkedin;
     private final String reminder;
     private final String[] phones;
-    private final ContactNeed contactNeed;
+    private final List<ContactNeed> contactNeed;
     private final List<String[]> contactPushs;
     private final List<ContactConversation> contactConversation;
     private final List<ContactInformation> contactInformation;
@@ -37,7 +37,7 @@ public class Contact {
             @JsonProperty("reminder") String reminder,
             @JsonProperty("phones") String[] phones,
             @JsonProperty("linkedin") String linkedin,
-            @JsonProperty("contactNeed") ContactNeed contactNeed,
+            @JsonProperty("contactNeed") List<ContactNeed> contactNeed,
             @JsonProperty("contactPushs") List<String[]> contactPushs,
             @JsonProperty("contactConversation") List<ContactConversation> contactConversation,
             @JsonProperty("contactInformation") List<ContactInformation> contactInformation
@@ -74,7 +74,7 @@ public class Contact {
         return contactPushs;
     }
 
-    public ContactNeed getContactNeed() {
+    public List<ContactNeed> getContactNeed() {
         return contactNeed;
     }
 

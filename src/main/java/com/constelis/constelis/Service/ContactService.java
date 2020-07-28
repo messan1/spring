@@ -3,6 +3,8 @@ package com.constelis.constelis.Service;
 import com.constelis.constelis.Dao.ContactDao;
 import com.constelis.constelis.Model.Client;
 import com.constelis.constelis.Model.Contact;
+import com.constelis.constelis.Model.ContactConversation;
+import com.constelis.constelis.Model.ContactNeed;
 import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -40,6 +42,19 @@ public class ContactService {
 
     public Contact findById(String id){
         return contactDao.findById(id);
+    }
+
+    public List<ContactConversation> findConversations(String id){
+     return   contactDao.findConversations(id);
+    }
+    public List<ContactNeed> findNeed(String id){
+        return contactDao.findNeed(id);
+    }
+    public UpdateResult addConversation(String id,ContactConversation conversation){
+        return contactDao.addConversation(id,conversation);
+    }
+    public  UpdateResult addNeed(String id,ContactNeed contactNeed){
+        return  contactDao.addNeed(id,contactNeed);
     }
 
 

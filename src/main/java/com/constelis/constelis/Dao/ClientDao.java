@@ -31,11 +31,13 @@ public class ClientDao {
     }
 
     public List<Client> findByName(String name) {
-        Query query = new Query().addCriteria(Criteria.where("name").is("infinity"));
+        Query query = new Query().addCriteria(Criteria.where("name").is(name));
         return mongoTemplate.find(query, Client.class);
     }
 
     public Client addClient(Client client) {
+        List<Contact> contacts = new ArrayList<>(){};
+        client.setContacts(contacts);
         return repository.save(client);
     }
 
@@ -63,11 +65,16 @@ public class ClientDao {
 
     public UpdateResult addContact(String clientId,String contactId){
         Update update = new Update();
+        List<Contact>  contacts;
         Query contactQuery = new Query().addCriteria(Criteria.where("_id").is(contactId));
         Query clientQuery = new Query().addCriteria(Criteria.where("_id").is(clientId));
         Contact contact= mongoTemplate.findOne(contactQuery, Contact.class);
         Client client = mongoTemplate.findOne(clientQuery,Client.class);
-        List<Contact>  contacts = client.getContacts();
+        if(client.getContacts()==null){
+        contacts = new ArrayList<>();
+        }else{
+            contacts = client.getContacts();
+        }
         contacts.add(contact);
         update.set("contacts",contacts);
 

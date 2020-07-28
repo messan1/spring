@@ -8,17 +8,11 @@ import com.constelis.constelis.Service.ClientService;
 import com.mongodb.client.result.UpdateResult;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("api/v1/client")
 @RestController
+@CrossOrigin(origins = "*",allowedHeaders = "*")
 public class ClientController {
 
     @Autowired
@@ -53,8 +47,10 @@ public class ClientController {
         return clientService.addClient(client);
     }
 
+
     @PutMapping
     public UpdateResult updateClient(@RequestParam(name = "id") String id, @RequestBody Client client) {
+        System.out.println(id);
         return clientService.updateClient(id, client);
     }
     @DeleteMapping
@@ -63,6 +59,7 @@ public class ClientController {
     }
 
     @PutMapping("/contact")
+
     public UpdateResult addContact(String id, String contactId){
         return clientService.addContact(id,contactId);
     }
