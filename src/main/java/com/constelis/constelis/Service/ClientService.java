@@ -1,5 +1,6 @@
 package com.constelis.constelis.Service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.constelis.constelis.Dao.ClientDao;
@@ -47,5 +48,17 @@ public class ClientService {
 
     public UpdateResult addContact(String id , String contactId){
         return  clientDao.addContact(id,contactId);
+    }
+    public List<Client> findByNameStartBy(String name){
+        return clientDao.findByNameStartBy(name);
+    }
+    public List<Client> findByNeed(String name){
+        return  clientDao.findByNeed(name);
+    }
+    public List<Client> findByPush(String name){
+        return  clientDao.findByPush(name);
+    }
+    public List<Client> FindByReminder(Date date){
+return  clientDao.findByReminder(date);
     }
 }

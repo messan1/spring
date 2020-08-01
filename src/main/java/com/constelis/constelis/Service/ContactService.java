@@ -9,6 +9,8 @@ import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -40,9 +42,6 @@ public class ContactService {
         return contactDao.deleteById(id);
     }
 
-    public Contact findById(String id){
-        return contactDao.findById(id);
-    }
 
     public List<ContactConversation> findConversations(String id){
      return   contactDao.findConversations(id);
@@ -57,5 +56,13 @@ public class ContactService {
         return  contactDao.addNeed(id,contactNeed);
     }
 
-
+    public Contact findContactById(String id){
+        return contactDao.findContactById(id);
+    }
+    public UpdateResult updateCv(String id, @RequestBody String name,String needId) {
+        return contactDao.addCv(id, name,needId);
+    }
+    public UpdateResult updateAo(String ao , String id) {
+        return contactDao.addAo(ao,id);
+    }
 }

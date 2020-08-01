@@ -28,7 +28,7 @@ public class Client {
     private final String linkedin;
     private final String notes;
 
-    @DBRef
+    @DBRef(lazy = true)
     public List<Contact> contacts;
 
     public Client(@JsonProperty("id") String id, @JsonProperty("name") String name,

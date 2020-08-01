@@ -2,7 +2,6 @@ package com.constelis.constelis.Dao;
 
 
 import com.constelis.constelis.Dao.Interface.ContactRepository;
-import com.constelis.constelis.Model.Client;
 import com.constelis.constelis.Model.Contact;
 import com.constelis.constelis.Model.ContactConversation;
 import com.constelis.constelis.Model.ContactNeed;
@@ -61,6 +60,7 @@ public class ContactDao {
         Contact contact =  mongoTemplate.findOne(query, Contact.class);
         Update update = new Update();
 
+        assert contact != null;
         contactConversations=contact.getContactConversation();
         contactConversations.add(conversation);
         update.set("contactConversation",contactConversations);
@@ -74,12 +74,37 @@ public class ContactDao {
 
         contactNeeds=contact.getContactNeed();
         contactNeeds.add(need);
-        update.set("contactConversation",contactNeeds);
+        update.set("contactNeed",contactNeeds);
+        return mongoTemplate.updateFirst(query, update, Contact.class);
+    }
+
+    public UpdateResult addAo(String ao,String id){
+
+        Query query = new Query()
+                .addCriteria(Criteria.where("_id").is(id))
+                .addCriteria(Criteria.where("contactNeeds").elemMatch(Criteria.where("id").is(ao)));
+        Contact contact =  mongoTemplate.findOne(query, Contact.class);
+        Update update = new Update();
+        update.set("ao","terimé");
+        return mongoTemplate.updateFirst(query, update, Contact.class);
+    }
+    public UpdateResult addCv(String id,String name,String needId){
+
+        Query query = new Query()
+                .addCriteria(Criteria.where("_id").is(id))
+                .addCriteria(Criteria.where("contactNeed").elemMatch(Criteria.where("id").is(needId)));
+        Contact contact =  mongoTemplate.findOne(query, Contact.class);
+        Update update = new Update();
+        update.set("cvFile",name);
         return mongoTemplate.updateFirst(query, update, Contact.class);
     }
     public List<Contact> findByNameStartBy(String name){
         Query query = new Query().addCriteria(Criteria.where("name").regex("^"+name));
         return mongoTemplate.find(query,Contact.class);
+    }
+    public Contact findContactById (String id){
+        Query query = new Query().addCriteria(Criteria.where("_id").is(id));
+        return mongoTemplate.findOne(query,Contact.class);
     }
 
     public Contact deleteById(String id) {
@@ -93,10 +118,9 @@ public class ContactDao {
         update.set("reminder",contact.getReminder());
         update.set("contactNeed",contact.getContactNeed());
         update.set("contactPushs",contact.getContactPushs());
-        update.set("contactInformation",contact.getContactInformation());
-        update.set("phones",contact.getPhones());
 
         return mongoTemplate.updateFirst(query, update, Contact.class);
     }
+
 
 }

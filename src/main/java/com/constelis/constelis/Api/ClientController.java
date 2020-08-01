@@ -1,10 +1,12 @@
 package com.constelis.constelis.Api;
 
+import java.util.Date;
 import java.util.List;
 
 import com.constelis.constelis.Model.Client;
 import com.constelis.constelis.Model.Contact;
 import com.constelis.constelis.Service.ClientService;
+import com.constelis.constelis.Service.ContactService;
 import com.mongodb.client.result.UpdateResult;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +36,21 @@ public class ClientController {
 
     @GetMapping("/startby")
     private List<Client> findByNameStartBy(@RequestParam(name = "name") String name){
-        return null;
+        return clientService.findByNameStartBy(name);
+    }
+
+
+    @GetMapping("/startbyneed")
+    private List<Client> findByNameStartByNeed(@RequestParam(name = "data") String data){
+        return clientService.findByNeed(data);
+    }
+    @GetMapping("/startbypush")
+    private List<Client> findByNameStartByPush(@RequestParam(name = "data") String data){
+        return clientService.findByPush(data);
+    }
+    @GetMapping("/reminder")
+    private List<Client> GtReminner(@RequestParam(name = "data") Date data){
+        return clientService.FindByReminder(data);
     }
 
     @GetMapping("/id")
@@ -58,9 +74,9 @@ public class ClientController {
         return clientService.deleteById(id);
     }
 
-    @PutMapping("/contact")
 
-    public UpdateResult addContact(String id, String contactId){
+    @PutMapping("/contact")
+    public UpdateResult addContact(@RequestParam(name = "id") String id,@RequestParam(name = "contactId") String contactId){
         return clientService.addContact(id,contactId);
     }
 }
