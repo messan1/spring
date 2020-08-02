@@ -123,6 +123,7 @@ public class ContactDao {
         Update update = new Update();
         contact.StringData().forEach(update::set);
         update.set("reminder",contact.getReminder());
+        update.set("plaquette",contact.getPlaquette());
         update.set("contactNeed",contact.getContactNeed());
         update.set("contactPushs",contact.getContactPushs());
 

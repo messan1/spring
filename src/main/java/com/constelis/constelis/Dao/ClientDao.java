@@ -96,11 +96,13 @@ public class ClientDao {
 
 
     public List<Client> findByNameStartBy(String name){
-        Query query = new Query().addCriteria(Criteria.where("name").regex("(?i).*"+name+".*"))
-                .addCriteria(Criteria.where("contacts")
-                        .elemMatch(Criteria.where("firstName").regex("(?i).*" + name + ".*"))
-
-                );
+        if(name.isEmpty()){
+            return new ArrayList<>();
+        }
+        Query query = new Query().addCriteria(Criteria.where("contacts")
+                .elemMatch(
+                        Criteria.where("firstName").regex("(?i).*"+name+".*")
+                ));
         return mongoTemplate.find(query,Client.class);
     }
 
