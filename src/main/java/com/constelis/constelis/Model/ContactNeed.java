@@ -1,45 +1,47 @@
 package com.constelis.constelis.Model;
 
-import java.sql.Date;
-import java.time.LocalDateTime;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
+
 
 public class ContactNeed {
 
-    private final LocalDateTime date;
+    private final String date;
+    @Id
+    private final String id;
     private final String needs;
-    private final String Ao;
-    private final String AoFile;
+    private final String ao;
+    private final String aoFile;
     private final String status;
-    private final String Cv;
-    private final String CvFile;
-    private final Date Cvsenddate;
+    private final String cv;
+    private final String cvFile;
+    private final String cvsenddate;
 
-    public ContactNeed(@JsonProperty("date") LocalDateTime date, @JsonProperty("needs") String needs,
-            @JsonProperty("ao") String ao, @JsonProperty("aoFile") String aoFile, @JsonProperty("status") String status,
-            @JsonProperty("cv") String cv, @JsonProperty("cvFile") String cvFile,
-            @JsonProperty("cvsenddate") Date cvsenddate) {
+    public ContactNeed(@JsonProperty("date") String date,  @JsonProperty("id") String id, @JsonProperty("needs") String needs,
+                       @JsonProperty("ao") String ao, @JsonProperty("aoFile") String aoFile, @JsonProperty("status") String status,
+                       @JsonProperty("cv") String cv, @JsonProperty("cvFile") String cvFile,
+                       @JsonProperty("cvsenddate") String cvsenddate) {
         this.date = date;
+        this.id = id;
         this.needs = needs;
-        Ao = ao;
-        AoFile = aoFile;
+        this.ao = ao;
+        this.aoFile = aoFile;
         this.status = status;
-        Cv = cv;
-        CvFile = cvFile;
-        Cvsenddate = cvsenddate;
+        this.cv = cv;
+        this.cvFile = cvFile;
+        this.cvsenddate = cvsenddate;
     }
 
-    public Date getCvsenddate() {
-        return Cvsenddate;
+    public String getCvsenddate() {
+        return cvsenddate;
     }
 
     public String getCvFile() {
-        return CvFile;
+        return cvFile;
     }
 
     public String getCv() {
-        return Cv;
+        return cv;
     }
 
     public String getStatus() {
@@ -47,19 +49,23 @@ public class ContactNeed {
     }
 
     public String getAoFile() {
-        return AoFile;
+        return aoFile;
     }
 
     public String getAo() {
-        return Ao;
+        return ao;
     }
 
     public String getNeeds() {
         return needs;
     }
 
-    public LocalDateTime getDate() {
+    public String getDate() {
         return date;
+    }
+
+    public String getId() {
+        return id;
     }
 
 }

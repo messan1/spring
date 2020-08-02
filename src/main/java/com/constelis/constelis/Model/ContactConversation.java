@@ -8,11 +8,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ContactConversation {
 
-    private final LocalDateTime date;
+    private final String date;
     private final String conversation;
     private final String trigramme;
 
-    public ContactConversation(@JsonProperty("date") LocalDateTime date,
+    public ContactConversation(@JsonProperty("date") String date,
             @JsonProperty("conversation") String conversation,@JsonProperty("trigramme") String trigramme) {
         this.date = date;
         this.conversation = conversation;
@@ -27,7 +27,7 @@ public class ContactConversation {
         return conversation;
     }
 
-    public LocalDateTime getDate() {
+    public String getDate() {
         return date;
     }
 

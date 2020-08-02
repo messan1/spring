@@ -5,13 +5,15 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 public class Client {
 
-    private final String _id;
+    @Id
+    private final String id;
     private final String name;
     private final String address;
     private final String postalCode;
@@ -25,17 +27,18 @@ public class Client {
     private final String rights;
     private final String linkedin;
     private final String notes;
-    @DBRef
-    private final List<Contact> contacts = null;
 
-    public Client(@JsonProperty("id") String _id, @JsonProperty("name") String name,
-            @JsonProperty("address") String address, @JsonProperty("postalCode") String postalCode,
-            @JsonProperty("sectpr") String sector, @JsonProperty("city") String city,
-            @JsonProperty("precision") String precision, @JsonProperty("activity") String activity,
-            @JsonProperty("phone1") String phone1, @JsonProperty("phone2") String phone2,
-            @JsonProperty("email") String email, @JsonProperty("rights") String rights,
-            @JsonProperty("linkedin") String linkedin, @JsonProperty("notes") String notes) {
-        this._id = _id;
+    @DBRef(lazy = true)
+    public List<Contact> contacts;
+
+    public Client(@JsonProperty("id") String id, @JsonProperty("name") String name,
+                  @JsonProperty("address") String address, @JsonProperty("postalCode") String postalCode,
+                  @JsonProperty("sectpr") String sector, @JsonProperty("city") String city,
+                  @JsonProperty("precision") String precision, @JsonProperty("activity") String activity,
+                  @JsonProperty("phone1") String phone1, @JsonProperty("phone2") String phone2,
+                  @JsonProperty("email") String email, @JsonProperty("rights") String rights,
+                  @JsonProperty("linkedin") String linkedin, @JsonProperty("notes") String notes, @JsonProperty("contacts") List<Contact> contacts) {
+        this.id = id;
         this.name = name;
         this.address = address;
         this.postalCode = postalCode;
@@ -49,15 +52,18 @@ public class Client {
         this.rights = rights;
         this.linkedin = linkedin;
         this.notes = notes;
+        this.contacts = contacts;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public List<Contact> getContacts() {
         return contacts;
     }
 
-    public String get_id() {
-        return _id;
-    }
+
 
     public String getNotes() {
         return notes;
@@ -107,9 +113,15 @@ public class Client {
         return address;
     }
 
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
+    }
+
     public String getName() {
         return name;
     }
+
+
 
     public List<Contact> addContact(Contact contact){
         contacts.add(contact);

@@ -1,6 +1,9 @@
 package com.constelis.constelis.Model;
 
-import java.time.LocalDateTime;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -9,51 +12,76 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collation = "contact")
+@Document("contact")
 public class Contact {
 
-    private final String _id;
+    @Id
+    private final String id;
     private final String firstName;
     private final String lastName;
     private final String status;
-    private final String email;
+    private final String emailContact;
     private final String title;
-    private final String linkedin;
-    private final LocalDateTime reminder;
-    private final String[] phones;
-    private final ContactNeed contactNeed;
-    private final List<String[]> contactPushs;
-    private final List<ContactConversation> contactConversation;
-    private final List<ContactInformation> contactInformation;
+    private final String linkedinContact;
+    private final LocalDate reminder;
+    private final String cphones1;
+    private final String cphones2;
+    private final String observation;
+    private final String plaquetteinfo;
+    private final String technoTools;
+    private final LocalDate plaquette;
+    private final String mobile;
+    private  List<ContactNeed> contactNeed;
+    private final String[] contactPushs;
+    private List<ContactConversation> contactConversation;
+    private  List<ContactInformation> contactInformation;
 
     public Contact(
-            @JsonProperty("id") String _id,
-            @JsonProperty("lastName") String lastName,
+
+            @JsonProperty("id") String id, @JsonProperty("lastName") String lastName,
             @JsonProperty("firstName") String firstName,
-            @JsonProperty("status") String status, 
-            @JsonProperty("email") String email,
-            @JsonProperty("title") String title, 
-            @JsonProperty("reminder") LocalDateTime reminder,
-            @JsonProperty("phones") String[] phones, 
-            @JsonProperty("linkedin") String linkedin,
-            @JsonProperty("contactNeed") ContactNeed contactNeed,
-            @JsonProperty("contactPushs") List<String[]> contactPushs,
+            @JsonProperty("status") String status,
+            @JsonProperty("emailContact") String emailContact,
+            @JsonProperty("title") String title,
+            @JsonProperty("reminder") LocalDate reminder,
+            @JsonProperty("cphones2") String cphones2,
+            @JsonProperty("cphones1") String cphones1,
+            @JsonProperty("observation") String observation,
+            @JsonProperty("plaquetteinfo") String plaquetteinfo,
+            @JsonProperty("technoTools") String technoTools,
+            @JsonProperty("plaquette") LocalDate plaquette,
+            @JsonProperty("mobile") String mobile,
+            @JsonProperty("linkedinContact") String linkedinContact,
+            @JsonProperty("contactNeed") List<ContactNeed> contactNeed,
+            @JsonProperty("contactPushs") String[] contactPushs,
             @JsonProperty("contactConversation") List<ContactConversation> contactConversation,
             @JsonProperty("contactInformation") List<ContactInformation> contactInformation
-            ) {
-        this._id = _id;
+    ) {
+
+        this.id = id;
+
         this.lastName = lastName;
         this.status = status;
-        this.email = email;
+        this.emailContact = emailContact;
         this.firstName=firstName;
         this.title = title;
         this.reminder = reminder;
-        this.phones = phones;
-        this.linkedin = linkedin;
+        this.cphones1 = cphones1;
+        this.cphones2 = cphones2;
+        this.observation = observation;
+        this.plaquetteinfo = plaquetteinfo;
+        this.technoTools = technoTools;
+        this.plaquette = plaquette;
+        this.mobile = mobile;
+        this.linkedinContact = linkedinContact;
         this.contactNeed = contactNeed;
         this.contactPushs = contactPushs;
         this.contactConversation = contactConversation;
         this.contactInformation = contactInformation;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public List<ContactInformation> getContactInformation() {
@@ -61,26 +89,56 @@ public class Contact {
     }
 
     public List<ContactConversation> getContactConversation() {
+        if (contactConversation == null) {
+            contactConversation = new ArrayList<ContactConversation>();
+        }
         return contactConversation;
     }
 
-    public List<String[]> getContactPushs() {
+    public String[] getContactPushs() {
         return contactPushs;
     }
 
-    public ContactNeed getContactNeed() {
+    public List<ContactNeed> getContactNeed() {
+        if(contactNeed==null){
+            contactNeed = new ArrayList<ContactNeed>();
+        }
         return contactNeed;
     }
 
-    public String getLinkedin() {
-        return linkedin;
+    public String getPlaquetteinfo() {
+        return plaquetteinfo;
     }
 
-    public String[] getPhones() {
-        return phones;
+    public String getLinkedinContact() {
+        return linkedinContact;
     }
 
-    public LocalDateTime getReminder() {
+    public String getCphones1() {
+        return cphones1;
+    }
+
+    public String getObservation() {
+        return observation;
+    }
+
+    public LocalDate getPlaquette() {
+        return plaquette;
+    }
+
+    public String getTechnoTools() {
+        return technoTools;
+    }
+
+    public String getCphones2() {
+        return cphones2;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public LocalDate getReminder() {
         return reminder;
     }
 
@@ -88,8 +146,8 @@ public class Contact {
         return title;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEmailContact() {
+        return emailContact;
     }
 
     public String getStatus() {
@@ -106,16 +164,20 @@ public class Contact {
 
     public HashMap<String,String> StringData(){
         HashMap<String,String> data = new HashMap<>();
-        data.put("linkedin",getLinkedin());
+        data.put("linkedinContact",getLinkedinContact());
         data.put("status",getStatus());
-        data.put("email",getEmail());
+        data.put("emailContact",getEmailContact());
         data.put("lastName",getLastName());
+        data.put("mobile",getMobile());
+        data.put("cphones1",getCphones1());
+        data.put("cphones2",getCphones2());
         data.put("title",getTitle());
         data.put("firstName",getFirstName());
+
+        data.put("observation",getObservation());
+        data.put("technoTools",getTechnoTools());
+        data.put("plaquetteinfo",getPlaquetteinfo());
         return  data;
     }
 
-    public String get_id() {
-        return _id;
-    }
 }
