@@ -1,6 +1,7 @@
 package com.constelis.constelis.Model;
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,13 +23,13 @@ public class Contact {
     private final String emailContact;
     private final String title;
     private final String linkedinContact;
-    private final String reminder;
+    private final LocalDate reminder;
     private final String cphones1;
     private final String cphones2;
     private final String observation;
     private final String plaquetteinfo;
     private final String technoTools;
-    private final Date plaquette;
+    private final LocalDate plaquette;
     private final String mobile;
     private  List<ContactNeed> contactNeed;
     private final String[] contactPushs;
@@ -42,13 +43,13 @@ public class Contact {
             @JsonProperty("status") String status,
             @JsonProperty("emailContact") String emailContact,
             @JsonProperty("title") String title,
-            @JsonProperty("reminder") String reminder,
+            @JsonProperty("reminder") LocalDate reminder,
             @JsonProperty("cphones2") String cphones2,
             @JsonProperty("cphones1") String cphones1,
             @JsonProperty("observation") String observation,
             @JsonProperty("plaquetteinfo") String plaquetteinfo,
             @JsonProperty("technoTools") String technoTools,
-            @JsonProperty("plaquette") Date plaquette,
+            @JsonProperty("plaquette") LocalDate plaquette,
             @JsonProperty("mobile") String mobile,
             @JsonProperty("linkedinContact") String linkedinContact,
             @JsonProperty("contactNeed") List<ContactNeed> contactNeed,
@@ -56,6 +57,7 @@ public class Contact {
             @JsonProperty("contactConversation") List<ContactConversation> contactConversation,
             @JsonProperty("contactInformation") List<ContactInformation> contactInformation
     ) {
+
         this.id = id;
 
         this.lastName = lastName;
@@ -120,7 +122,7 @@ public class Contact {
         return observation;
     }
 
-    public Date getPlaquette() {
+    public LocalDate getPlaquette() {
         return plaquette;
     }
 
@@ -136,7 +138,7 @@ public class Contact {
         return mobile;
     }
 
-    public String getReminder() {
+    public LocalDate getReminder() {
         return reminder;
     }
 

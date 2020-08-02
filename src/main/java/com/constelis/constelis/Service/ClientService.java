@@ -1,5 +1,6 @@
 package com.constelis.constelis.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class ClientService {
     public List<Client> findByPush(String name){
         return  clientDao.findByPush(name);
     }
-    public List<Client> FindByReminder(Date date){
+    public List<Client> FindByReminder(LocalDate date){
 return  clientDao.findByReminder(date);
     }
 }

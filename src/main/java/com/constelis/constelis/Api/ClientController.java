@@ -1,7 +1,10 @@
 package com.constelis.constelis.Api;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import com.constelis.constelis.Model.Client;
 import com.constelis.constelis.Model.Contact;
@@ -49,8 +52,10 @@ public class ClientController {
         return clientService.findByPush(data);
     }
     @GetMapping("/reminder")
-    private List<Client> GtReminner(@RequestParam(name = "data") Date data){
-        return clientService.FindByReminder(data);
+    private List<Client> GtReminner(@RequestParam(name = "data") String data){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH);
+        LocalDate date3 = LocalDate.parse(data, formatter);
+        return clientService.FindByReminder(date3);
     }
 
     @GetMapping("/id")

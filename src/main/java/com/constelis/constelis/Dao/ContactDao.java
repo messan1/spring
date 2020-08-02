@@ -13,7 +13,10 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Repository("ContactDao")
@@ -78,24 +81,28 @@ public class ContactDao {
         return mongoTemplate.updateFirst(query, update, Contact.class);
     }
 
-    public UpdateResult addAo(String ao,String id){
+    public UpdateResult addAo(String id,String ao,String name){
 
         Query query = new Query()
                 .addCriteria(Criteria.where("_id").is(id))
-                .addCriteria(Criteria.where("contactNeeds").elemMatch(Criteria.where("id").is(ao)));
-        Contact contact =  mongoTemplate.findOne(query, Contact.class);
+                .addCriteria(Criteria.where("contactNeed")
+                        .elemMatch(Criteria.where("_id").is(ao)));
         Update update = new Update();
-        update.set("ao","terimé");
+
+        update.set("contactNeed.$.ao","terimé");
+        update.set("contactNeed.$.aoFile",name);
         return mongoTemplate.updateFirst(query, update, Contact.class);
     }
     public UpdateResult addCv(String id,String name,String needId){
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
         Query query = new Query()
                 .addCriteria(Criteria.where("_id").is(id))
-                .addCriteria(Criteria.where("contactNeed").elemMatch(Criteria.where("id").is(needId)));
-        Contact contact =  mongoTemplate.findOne(query, Contact.class);
+                .addCriteria(Criteria.where("contactNeed").elemMatch(Criteria.where("_id").is(needId)));
         Update update = new Update();
-        update.set("cvFile",name);
+        update.set("contactNeed.$.cvFile",name);
+        update.set("contactNeed.$.cvsenddate",formatter.format(date));
         return mongoTemplate.updateFirst(query, update, Contact.class);
     }
     public List<Contact> findByNameStartBy(String name){
@@ -120,6 +127,12 @@ public class ContactDao {
         update.set("contactPushs",contact.getContactPushs());
 
         return mongoTemplate.updateFirst(query, update, Contact.class);
+    }
+
+    public List<Contact> reminder(LocalDate data){
+        Query query = new Query()
+                .addCriteria(Criteria.where("reminder").gte(data));
+        return mongoTemplate.find(query,Contact.class);
     }
 
 

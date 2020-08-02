@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -59,10 +60,14 @@ public class ContactService {
     public Contact findContactById(String id){
         return contactDao.findContactById(id);
     }
-    public UpdateResult updateCv(String id, @RequestBody String name,String needId) {
+    public UpdateResult updateCv(String id,String name,String needId) {
         return contactDao.addCv(id, name,needId);
     }
-    public UpdateResult updateAo(String ao , String id) {
-        return contactDao.addAo(ao,id);
+    public UpdateResult updateAo(String ao , String id,String name) {
+        return contactDao.addAo(ao,id,name);
+    }
+
+    public List<Contact> reminder(LocalDate date){
+        return contactDao.reminder(date);
     }
 }

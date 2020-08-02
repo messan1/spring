@@ -1,5 +1,6 @@
 package com.constelis.constelis.Dao;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -77,15 +78,29 @@ public class ClientDao {
                 .elemMatch(Criteria.where("contactPushs").in(name)));
         return mongoTemplate.find(query,Client.class);
     }
-    public List<Client> findByReminder(Date date){
+    public List<Client> findByReminder(LocalDate date){
+        ContactDao contactDao = new ContactDao(mongoTemplate);
+        List<Client> clients = new ArrayList<>();
+        List<Contact> contacts = contactDao.reminder(date);
+        for(Contact contact:contacts){
+            Query query = new Query().addCriteria(Criteria.where("contacts")
 
-        Query query = new Query().addCriteria(Criteria.where("contacts")
-                .elemMatch(Criteria.where("reminder").lte(date)));
-        return mongoTemplate.find(query,Client.class);
+                    .elemMatch(Criteria.where("firstName").is(contact.getFirstName()))
+            );
+            Client client = mongoTemplate.findOne(query,Client.class);
+            clients.add(client);
+        }
+        return clients;
     }
 
+
+
     public List<Client> findByNameStartBy(String name){
-        Query query = new Query().addCriteria(Criteria.where("name").regex("(?i).*" + name + ".*"));
+        Query query = new Query().addCriteria(Criteria.where("name").regex("(?i).*"+name+".*"))
+                .addCriteria(Criteria.where("contacts")
+                        .elemMatch(Criteria.where("firstName").regex("(?i).*" + name + ".*"))
+
+                );
         return mongoTemplate.find(query,Client.class);
     }
 

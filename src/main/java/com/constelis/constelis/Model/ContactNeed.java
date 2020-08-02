@@ -1,11 +1,13 @@
 package com.constelis.constelis.Model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
 
 
 public class ContactNeed {
 
     private final String date;
+    @Id
     private final String id;
     private final String needs;
     private final String ao;

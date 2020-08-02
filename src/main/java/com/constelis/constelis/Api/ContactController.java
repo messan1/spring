@@ -6,15 +6,19 @@ import com.constelis.constelis.Model.ContactNeed;
 import com.constelis.constelis.Service.ContactService;
 import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 
 @RequestMapping("api/v1/contact")
@@ -77,26 +81,37 @@ public class ContactController {
     }
 
     @PutMapping("/ao")
-    public UpdateResult updateAo(@RequestParam(name = "ao") String ao,@RequestParam(name = "id") String id) {
-        return contactService.updateAo(id,ao);
+    public UpdateResult updateAo(@RequestParam(name = "ao") String ao,@RequestParam(name = "id") String id,@RequestParam(name = "name") String name) {
+       System.out.println("ao");
+        return contactService.updateAo(id,ao,name);
     }
 
     @PutMapping("/cv")
-    public UpdateResult updateCv(@RequestParam(name = "need") String needId,@RequestParam(name = "id") String id, @RequestBody String name) {
+    public UpdateResult updateCv(@RequestParam(name = "needId") String needId,@RequestParam(name = "id") String id,@RequestParam(name = "name") String name) {
+        System.out.println(needId);
         return contactService.updateCv(id, name,needId);
     }
+
+    @GetMapping("/test")
+    public List<Contact> bind(@RequestParam(name = "date") String date2){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH);
+        LocalDate date3 = LocalDate.parse(date2, formatter);
+        return contactService.reminder(date3);
+    }
+
     @DeleteMapping
     public Contact deleteById(@RequestParam(name = "id") String id) {
         return contactService.deleteById(id);
     }
 
     @PostMapping("/savefile")
-    public Integer handleFileUpload(@RequestParam("file") MultipartFile file) {
+    public Integer handleFileUpload(@RequestParam("file") MultipartFile file,@RequestParam(name = "name") String name) {
 
+        String data = name+"."+getExtensionByStringHandling(file.getOriginalFilename()).get();
         try {
             try {
                 Files.copy(file.getInputStream(),
-                        this.rootLocation.resolve(Objects.requireNonNull(file.getOriginalFilename())));
+                        this.rootLocation.resolve(data));
             } catch (Exception e) {
                 throw new RuntimeException("FAIL!");
             }
@@ -106,6 +121,10 @@ public class ContactController {
             return null;
         }
     }
-
+    public Optional<String> getExtensionByStringHandling(String filename) {
+        return Optional.ofNullable(filename)
+                .filter(f -> f.contains("."))
+                .map(f -> f.substring(filename.lastIndexOf(".") + 1));
+    }
 
 }
